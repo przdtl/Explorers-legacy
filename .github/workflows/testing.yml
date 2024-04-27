@@ -11,7 +11,7 @@ jobs:
           python-version: '3.11'
 
       - name: install deps
-        run: pip install ./explorers_legacy/requirements.txt
+        run: pip install -r ./explorers_legacy/requirements.txt
 
       - name: run linter
         run: flake8 .
