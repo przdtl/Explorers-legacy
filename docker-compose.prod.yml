@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  app:
+    build: ./
+    container_name: explorer-legacy-app-prod-container
+    command: gunicorn explorers_legacy.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    expose:
+      - 8000
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: postgres-db-prod-container
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=111
+      - POSTGRES_DB=explorers_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - '5555:5432'
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  nginx:
+    build: ./nginx
+    container_name: nginx-prod-container
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    ports:
+      - '80:80'
+    depends_on:
+      app:
+        condition: service_started
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
