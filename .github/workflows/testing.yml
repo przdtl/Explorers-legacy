@@ -1,0 +1,15 @@
+name: linter and tests
+on: [push, pull_request]
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+
+      - name: install deps
+        run: pip install ./explorers_legacy/requirements.txt
+
+      - name: run linter
+        run: flake8 .
