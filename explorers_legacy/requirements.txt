@@ -1,0 +1,5 @@
+django==5.0.4
+flake8==7.0.0
+django-bootstrap5==24.2
+psycopg2-binary==2.9.6
+gunicorn==22.0.0
