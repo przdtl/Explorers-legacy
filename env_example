@@ -1,4 +1,4 @@
-SECRET_KEY=django-insecure-1f+1rvo2av7+o7jp(v21b@!iem%_-ak^u6ab2j8z67jbai)cs8
+SECRET_KEY='django-insecure-1f+1rvo2av7+o7jp(v21b@!iem%_-ak^u6ab2j8z67jbai)cs8'
 DEBUG=1
 SQL_ENGINE=django.db.backends.postgresql
 SQL_DATABASE=explorers_db
